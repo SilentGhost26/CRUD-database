@@ -76,4 +76,27 @@ public class CRUD {
         }
         return medicalAppointmentList;
     }
+
+    public void execProPrescriptionAmount(int patientId){
+        String sql = "{call pro_pres_amount(?)}";
+        try(CallableStatement stmt = connection.prepareCall(sql)){
+            stmt.setInt(1, patientId);
+
+            if(stmt.execute()){
+                try(ResultSet result = stmt.getResultSet()) {
+                    if(result.next()){
+                        String name = result.getString("name");
+                        int amount = result.getInt("prescription_amount");
+                        System.out.println("paciente: " + name + " - cantidad de citas medicas: " + amount);
+                    }
+                }
+            } else {
+                System.out.println("paciente menor de edad o registro no disponible");
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            throw new RuntimeException(e);
+        }
+    }
 }

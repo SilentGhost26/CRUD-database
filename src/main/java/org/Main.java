@@ -13,6 +13,7 @@ public class Main {
 //        updateOperation(crud, 1, "Completado");
 //        selectOperation(crud);
 //        deleteOperation(crud, 4);
+        procedureOperation(crud, 1);
     }
 
     public static void updateOperation(CRUD crud, int maId, String newState){
@@ -32,5 +33,9 @@ public class Main {
         for (MedicalAppointment medicalAppointment : medicalAppointmentList) {
             System.out.println(medicalAppointment);
         }
+    }
+
+    public static void procedureOperation(CRUD crud, int patientId){
+        crud.execProPrescriptionAmount(patientId);
     }
 }
